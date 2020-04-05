@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library.Models.Catalog;
 using LibraryData;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,8 +31,24 @@ namespace Library.Controllers
         public IActionResult Index()
         {
             var assetModels = _assets.GetAll();
-       
-            return View();
+
+            var listingResult = assetModels
+                .Select(result => new AssetIndexListingModel
+                { 
+                    Id = result.Id,
+                    AuthorOrDirector = _assets.GetAuthorOrDirector(result.Id),
+                    DeweyCallNumer = _assets.GetDeweyIndex(result.Id),
+                    ImageUrl = result.ImageUrl,
+                    Type = _assets.GetType(result.Id),
+                    Title = result.Title,
+                });
+
+            var model = new AssetIndexModel()
+            {
+                Assets = listingResult
+            };
+
+            return View(model);
         }
     }
 }
