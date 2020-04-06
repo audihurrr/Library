@@ -15,8 +15,8 @@
             <tbody>
                 @foreach(var asset in Model.Assets)
                 {
-                <tr class="assetRow">
-                    <td class="">
+                <tr class="assetRow" >
+                    <td>
                         <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@asset.Id">
                             <img src="@asset.ImageUrl" class="imageCell" />
                         </a>
@@ -25,7 +25,6 @@
                     <td class="">@asset.AuthorOrDirector</td>
                     <td class="">@asset.DeweyCallNumer</td>
                 </tr>
-
                 }
             </tbody>
         </table>
